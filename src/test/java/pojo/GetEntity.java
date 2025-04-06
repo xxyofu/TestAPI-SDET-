@@ -1,5 +1,6 @@
 package pojo;
 
+import helpers.JsonGetters;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class GetEntity {
+
+    @JsonGetters.Exclude
     @Builder.Default
     private int id = 0;
 
@@ -22,4 +25,6 @@ public class GetEntity {
 
     @Builder.Default
     private boolean verified = true;
+
+
 }

@@ -1,5 +1,6 @@
 package pojo;
 
+import helpers.JsonGetters;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ public class AdditionGet {
     @Builder.Default
     private int additional_number = 123;
 
+    @JsonGetters.Exclude
     @Builder.Default
     private int id = 0;
 

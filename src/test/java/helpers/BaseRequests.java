@@ -6,7 +6,6 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.mapper.ObjectMapperType;
 import io.restassured.specification.RequestSpecification;
-import pojo.CreateEntity;
 import pojo.GetEntity;
 
 import java.io.IOException;
@@ -25,11 +24,12 @@ public class BaseRequests {
         return requestSpecBuilder.build();
     }
     @Step("Create Entity by using POJO")
-    public static int CreateEntity(CreateEntity createEntity, RequestSpecification requestSpecification){
+    public static int CreateEntity(GetEntity createEntity, RequestSpecification requestSpecification){
+        String json = JsonGetters.getSerilizedJsonString(createEntity);
         return Integer
                 .parseInt(given()
                         .spec(requestSpecification)
-                        .body(createEntity)
+                        .body(json)
                         .when()
                         .post("/api/create")
                         .then().statusCode(200)
