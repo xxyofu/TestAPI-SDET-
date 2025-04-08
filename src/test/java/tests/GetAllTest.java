@@ -1,6 +1,7 @@
 package tests;
 
 import helpers.BaseRequests;
+import helpers.RandomGenerators;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class GetAllTest extends BaseTest{
     @Test(description = "Testing get request for all entities")
     @Severity(SeverityLevel.CRITICAL)
     public void GetAllEntity_test(){
-        GetEntity createEntity = GetEntity.builder().title("Test Get").build();
+        GetEntity createEntity = RandomGenerators.generateRandomEntity();
         UserId = BaseRequests.CreateEntity(createEntity, requestSpecification);
         List<GetEntity> getEntities = given()
                 .spec(requestSpecification)
@@ -30,15 +31,15 @@ public class GetAllTest extends BaseTest{
                 .jsonPath()
                 .getList("entity", GetEntity.class);
         SoftAssert softAssertation = new SoftAssert();
-        boolean flag = false;
+        //Проверяем есть ли в списке созданый entity
+        boolean haveCreatingEntity = false;
         for (int i = 0; i<getEntities.size(); i++){
             if (getEntities.get(i).getId()==UserId) {
-                softAssertation.assertEquals(getEntities.get(i).getId(), UserId);
-                flag = true;
+                haveCreatingEntity = true;
             }
         }
-        if (!flag)
-            softAssertation.assertEquals(UserId, -1);
+        softAssertation.assertTrue(haveCreatingEntity);
+        softAssertation.assertAll();
     }
 
 }

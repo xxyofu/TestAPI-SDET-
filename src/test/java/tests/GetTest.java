@@ -1,6 +1,7 @@
 package tests;
 
 import helpers.BaseRequests;
+import helpers.RandomGenerators;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.restassured.mapper.ObjectMapperType;
@@ -18,7 +19,7 @@ public class GetTest extends BaseTest{
     @Test(description = "Testing get request")
     @Severity(SeverityLevel.CRITICAL)
     public void GetEntity_test(){
-        GetEntity createEntity = GetEntity.builder().title("Test Get").build();
+        GetEntity createEntity = RandomGenerators.generateRandomEntity();
         UserId = BaseRequests.CreateEntity(createEntity, requestSpecification);
         GetEntity getEntity = given()
                 .spec(requestSpecification)
@@ -29,8 +30,9 @@ public class GetTest extends BaseTest{
                 .extract()
                 .as(GetEntity.class, ObjectMapperType.GSON);
         SoftAssert softAssertation = new SoftAssert();
-        softAssertation.assertEquals(getEntity.getTitle(), "Test Get");
+        softAssertation.assertEquals(getEntity.getTitle(), createEntity.getTitle());
         softAssertation.assertEquals(getEntity.getId(), UserId);
+        softAssertation.assertAll();
     }
 
 }

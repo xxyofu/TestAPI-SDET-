@@ -1,4 +1,4 @@
-<suite name="suite" parallel="classes" thread-count="3">
+<suite name="suite" parallel="classes" thread-count="5">
     <test name="Tests">
         <classes>
             <class name="tests.CreateTest"/>
