@@ -1,0 +1,11 @@
+<suite name="suite" parallel="classes" thread-count="5">
+    <test name="Tests">
+        <classes>
+            <class name="tests.CreateTest"/>
+            <class name="tests.DeleteTest"/>
+            <class name="tests.GetTest"/>
+            <class name="tests.GetAllTest"/>
+            <class name="tests.UpdateTest"/>
+        </classes>
+    </test>
+</suite>
